@@ -1,7 +1,7 @@
 #include <c10/util/CUDAHooksInterface.h>
 
-#include <c10/util/Exception.h>
 #include <c10/util/CallOnce.h>
+#include <c10/util/Exception.h>
 
 #include <cstddef>
 #include <memory>
@@ -38,7 +38,8 @@ const CUDAHooksInterface& getCUDAHooks() {
 #if !defined C10_MOBILE
   static c10::once_flag once;
   c10::call_once(once, [] {
-    cuda_hooks = CUDAHooksRegistry()->Create("CUDAHooks", CUDAHooksArgs{}).release();
+    cuda_hooks =
+        CUDAHooksRegistry()->Create("CUDAHooks", CUDAHooksArgs{}).release();
     if (!cuda_hooks) {
       cuda_hooks = new CUDAHooksInterface();
     }
